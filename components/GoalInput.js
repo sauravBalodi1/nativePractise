@@ -1,13 +1,13 @@
 import React from 'react'
-import { View, Text,StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text,StyleSheet, TouchableOpacity, TouchableHighlight } from 'react-native'
 
 const GoalInput = ({prop,ondelete}) => {
     return (
-      <TouchableOpacity activeOpacity={.1} onPress={ondelete}>
+      <TouchableHighlight  onPress={ondelete}>
         <View style={styles.list}>
             <Text>{prop}</Text>
         </View>
-        </TouchableOpacity>
+        </TouchableHighlight>
     )
 }
 const styles = StyleSheet.create({
