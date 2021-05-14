@@ -6,15 +6,17 @@
  * @flow strict-local
  */
 
-import React, { useState } from 'react';
+import React, {Suspense, useState} from 'react';
 import type {Node} from 'react';
 import {
   Button,
+  FlatList,
   SafeAreaView,
   ScrollView,
   StatusBar,
   StyleSheet,
   Text,
+  TextInput,
   useColorScheme,
   View,
 } from 'react-native';
@@ -26,28 +28,75 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import GoalInput from './components/GoalInput';
+import GoalItem from './components/GoalItem';
 
-
-const App= () => {
+const App = () => {
+  const [state, setstate] = useState('This is my first line of code');
+ 
+  const [arrayList, setarrayList] = useState([]);
   
-  const [state, setstate] = useState("This is my first line of code")
-return (
-  <View style={styles.container}>
- <Text>{state}</Text>
- <Button title="Click on me"onPress={()=>setstate("My state is changed")}/>
+  const pree = (input,setinput) => {
+    // const uniqueNames = Array.from(new Set(arrayList));
+    // setarrayList([...uniqueNames,input]);
+    setarrayList([...arrayList, input]);
+    setinput('');
+  };
+const render=(itemd)=>{
+  return <View style={styles.list}>
+    <Text>
+      {itemd.item.value}
+    </Text>
   </View>
- 
-)
+
 }
- 
-const styles=StyleSheet.create({
-  container:{
-    flex:1,
-    color:"black",
-    backgroundColor:"pink",
-    alignItems:"center",
-    justifyContent:"center"
-  }
-})
+  return (
+    //   <View style={styles.container}>
+    //  <Text>{state}</Text>
+    //  <Button title="Click on me"onPress={()=>setstate("My state is changed")}/>
+    //   </View>
+    <View style={styles.screen}>
+      <Text>This is my input field</Text>
+      <GoalItem preefun={pree}/>
+      <ScrollView>
+        <View>
+          {arrayList.map(e => (
+           <GoalInput  ondelete={()=>console.log("hellooodofs")}prop={e}/>
+          ))}
+          {/* <FlatList data={arrayList}
+              renderItem={render}
+              keyExtractor={(item,index)=>item.id}
+          /> */}
+        </View>
+      </ScrollView>
+      <View></View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  screen: {
+    padding: 30,
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  text: {
+    width: '80%',
+    padding: 30,
+    borderBottomColor: 'black',
+    borderLeftColor: 'pink',
+    borderWidth: 2,
+  },
+  list: {
+    padding: 10,
+    marginVertical: 10,
+    backgroundColor: '#ccc',
+    borderColor: 'black',
+    borderWidth: 1,
+  },
+});
 
 export default App;
