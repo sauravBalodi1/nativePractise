@@ -1,9 +1,10 @@
 import React from 'react'
 import { View, Text,StyleSheet, TouchableOpacity, TouchableHighlight } from 'react-native'
 
-const GoalInput = ({prop,ondelete}) => {
+const GoalInput = ({prop,ondelete,id}) => {
+  
     return (
-      <TouchableHighlight  onPress={ondelete}>
+      <TouchableHighlight underlayColor="pink" onPress={ondelete.bind(this,id)}>
         <View style={styles.list}>
             <Text>{prop}</Text>
         </View>

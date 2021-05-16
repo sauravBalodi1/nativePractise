@@ -39,7 +39,11 @@ const App = () => {
   const pree = (input,setinput) => {
     // const uniqueNames = Array.from(new Set(arrayList));
     // setarrayList([...uniqueNames,input]);
-    setarrayList([...arrayList, input]);
+    // setarrayList([...arrayList, input]);
+     setarrayList(currentGoals=>[
+       ...currentGoals,
+       {id:Math.random().toString(),value:input}
+     ])
     setinput('');
   };
 const render=(itemd)=>{
@@ -49,6 +53,11 @@ const render=(itemd)=>{
     </Text>
   </View>
 
+}
+const removeHandler=goalid=>{
+  const fil=arrayList.filter((goal)=>goal.id!=goalid)
+  console.log("the array is: ",fil)
+  setarrayList(fil)
 }
   return (
     //   <View style={styles.container}>
@@ -60,13 +69,13 @@ const render=(itemd)=>{
       <GoalItem preefun={pree}/>
       <ScrollView>
         <View>
-          {arrayList.map(e => (
-           <GoalInput  ondelete={()=>console.log("hellooodofs")}prop={e}/>
-          ))}
-          {/* <FlatList data={arrayList}
-              renderItem={render}
+          {/* {arrayList.map((e,i)=>( <GoalInput id={i.id} ondelete={removeHandler} prop={e}/>))} */}
+          
+        
+          <FlatList data={arrayList}
+              renderItem={itemdata=><GoalInput id={itemdata.item.id} ondelete={removeHandler} prop={itemdata.item.value}/>}
               keyExtractor={(item,index)=>item.id}
-          /> */}
+          />
         </View>
       </ScrollView>
       <View></View>
