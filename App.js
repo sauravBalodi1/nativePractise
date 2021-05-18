@@ -35,7 +35,8 @@ const App = () => {
   const [state, setstate] = useState('This is my first line of code');
  
   const [arrayList, setarrayList] = useState([]);
-  
+  const [isAddMode,setisAddMode]=useState(false);
+  const [cancel,setcancel]=useState(true);
   const pree = (input,setinput) => {
     // const uniqueNames = Array.from(new Set(arrayList));
     // setarrayList([...uniqueNames,input]);
@@ -44,8 +45,12 @@ const App = () => {
        ...currentGoals,
        {id:Math.random().toString(),value:input}
      ])
+     setisAddMode(false);
     setinput('');
   };
+  const cancelfunction=()=>{
+    setisAddMode(false);
+  }
 const render=(itemd)=>{
   return <View style={styles.list}>
     <Text>
@@ -66,8 +71,9 @@ const removeHandler=goalid=>{
     //   </View>
     <View style={styles.screen}>
       <Text>This is my input field</Text>
-      <GoalItem preefun={pree}/>
-      <ScrollView>
+      <Button title="Add a goal" onPress={()=>setisAddMode(true)}/>
+      <GoalItem cancelf={cancelfunction}visible={isAddMode}preefun={pree}/>
+      
         <View>
           {/* {arrayList.map((e,i)=>( <GoalInput id={i.id} ondelete={removeHandler} prop={e}/>))} */}
           
@@ -77,7 +83,7 @@ const removeHandler=goalid=>{
               keyExtractor={(item,index)=>item.id}
           />
         </View>
-      </ScrollView>
+     
       <View></View>
     </View>
   );
